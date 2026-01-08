@@ -13,7 +13,7 @@ const messageSchema = new mongoose.Schema({
         type : String
     },
     image:{
-        type: string
+        type: String
     },
     seen:{
         type: Boolean,

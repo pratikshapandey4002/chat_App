@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 
 //Initialize socket.io server
-export const io = new server(server, {cors : {origin: "*"}})
+export const io = new Server(server, {cors : {origin: "*"}})
 
 //store online users
 export const userSocketMap = {}; //{userId : socketId}
