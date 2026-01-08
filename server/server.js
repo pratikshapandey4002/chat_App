@@ -4,6 +4,7 @@ import cors from 'cors';
 import http from 'http';
 import connectDB from './config/dataBase.js';
 import userRouter from './routes/userRoutes.js';
+import messageRouter from './routes/messageRoutes.js';
 
 
 //create express and http server
@@ -18,6 +19,7 @@ app.use("/api/status", (req , res) => {
     res.send("server is live");
 })
 app.use('/api/auth', userRouter);
+app.use('/api/messages', messageRouter);
 
 const port = process.env.PORT || 5000;
 
