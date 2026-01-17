@@ -21,7 +21,7 @@ export const AuthProvider = ({children}) => {
     //check if user is authenticated and if so, set the user data and connect the socket 
     const checkAuth = async() => {
         try {
-           const data = await axios.get("/api/auth/check");
+           const {data} = await axios.get("/api/auth/check");
            if(data.success){
             setAuthUser(data.user);
             connectSocket(data.user);
@@ -39,12 +39,13 @@ export const AuthProvider = ({children}) => {
         try {
             const { data} = await axios.post(`/api/auth/${state}`, credentials);
             if(data.success){
-                setAuthUser(data.userData);
-                connectSocket(data.userData);
+                setAuthUser(data.user);
+                connectSocket(data.user);
                 axios.defaults.headers.common["token"] = data.token;
                 setToken(data.token)
                 localStorage.setItem("token", data.token)
                 toast.success(data.message);
+                return true;
             }
             else{
                 toast.error(data.message);

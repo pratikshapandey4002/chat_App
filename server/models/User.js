@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    name : {
+    fullName : {
         type: String,
         required : true
     },
@@ -17,8 +17,6 @@ const userSchema = new mongoose.Schema({
     },
     profilePic: {
         type:String,
-        required: true,
-        minlength: 6,
         default: ""
     },
     bio :{

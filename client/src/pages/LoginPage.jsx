@@ -1,5 +1,7 @@
-import React, { use, useState } from 'react'
+import React, { use, useContext, useState } from 'react'
 import assets from '../assets/assets'
+import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [currState , setCurrState] = useState("Sign up");
@@ -10,11 +12,20 @@ const LoginPage = () => {
 
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
-  const onSubmitHandler = (e) => {
+  const {login} = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const onSubmitHandler =  async(e) => {
     e.preventDefault();
     if(currState === 'Sign up' && !isDataSubmitted){
       setIsDataSubmitted(true);
       return;
+    }
+
+    const success = await login(currState === "Sign up" ? 'signup' : 'login', {fullName, email, password, bio});
+    if(success){
+      navigate('/');
     }
   }
   return (
