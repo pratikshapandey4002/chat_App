@@ -7,6 +7,7 @@ import {io} from 'socket.io-client'
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 axios.defaults.baseURL = backendUrl;
+axios.defaults.withCredentials = true;
 
 export const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
@@ -73,15 +74,18 @@ export const AuthProvider = ({children}) => {
 
     const updateProfile = async (body) => {
         try{
-            const {data} = await axios.put("api/auth/update-profile", body);
+            const {data} = await axios.put("/api/auth/update-profile", body);
             if(data.success){
                 setAuthUser(data.user);
-                toast.success("profile updated successfully")
+                toast.success("profile updated successfully");
+                return true;
             }
+            return false;
 
         }
         catch(error){
             toast.error(error.message);
+            return false;
 
         }
     }
